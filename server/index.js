@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import { errorLoggerMiddleware, errorResponseMiddleware } from "./middlewares/errors-middlewares.js";
 import authRoutes from "./routes/auth-routes.js";
+import s321Routes from "./routes/s321-routes.js";
 
 const PORT = process.env.PORT;
 const whitelist = ["http://localhost:3000"];
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use("/auth", authRoutes);
+app.use("/s321", s321Routes);
 app.use(errorLoggerMiddleware);
 app.use(errorResponseMiddleware);
 

@@ -7,10 +7,24 @@ import { errorLoggerMiddleware, errorResponseMiddleware } from "./middlewares/er
 import authRoutes from "./routes/auth-routes.js";
 
 const PORT = process.env.PORT;
+const whitelist = ["http://localhost:3000"];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+};
+
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use("/auth", authRoutes);
 app.use(errorLoggerMiddleware);

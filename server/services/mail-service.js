@@ -19,7 +19,7 @@ class MailService {
       to: email,
       subject: "Activation link",
       text: "Activation link",
-      html: `<a href=${activationLink}>Activation URL</a>`,
+      html: `<a href=${activationLink}>Activation link</a>`,
     });
   }
 }

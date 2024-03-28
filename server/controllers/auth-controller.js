@@ -7,7 +7,7 @@ class AuthController {
   async register(req, res, next) {
     try {
       const errors = validationResult(req);
-      if (!errors.isEmpty) {
+      if (!errors.isEmpty()) {
         return next(ApiError.BadRequest("Wrong password or email", errors.array()));
       }
       const { password, email } = req.body;
@@ -59,7 +59,7 @@ class AuthController {
     try {
       const { link } = req.params;
       await AuthService.activate(link);
-      return res.redirect(process.env.CLIENT_URL, 301);
+      return res.redirect(301, process.env.CLIENT_URL);
     } catch (err) {
       return next(err);
     }

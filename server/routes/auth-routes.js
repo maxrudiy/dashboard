@@ -17,6 +17,6 @@ router.post("/login", AuthController.login);
 router.post("/logout", AuthController.logout);
 router.get("/activate/:link", AuthController.activate);
 router.get("/refresh", AuthController.refresh);
-router.get("/users", AuthMiddleware("user"), AuthController.getUsers);
+router.get("/users", AuthMiddleware("admin"), AuthController.getUsers);
 
 export default router;

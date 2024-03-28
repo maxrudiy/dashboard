@@ -4,7 +4,8 @@ import { AuthMiddleware } from "../middlewares/auth-middleware.js";
 
 const router = new express.Router();
 
-router.post("/", AuthMiddleware("admin"), S321Controller.setParameters);
-router.get("/", AuthMiddleware("user"), S321Controller.getParameters);
+router.post("/create", AuthMiddleware("admin"), S321Controller.createSystem);
+router.post("/set/:system", AuthMiddleware("admin"), S321Controller.setParameters);
+router.get("/get/:system", AuthMiddleware("admin"), S321Controller.getParameters);
 
 export default router;

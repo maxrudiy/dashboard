@@ -4,7 +4,7 @@ import TokenService from "../services/token-service.js";
 const AuthMiddleware = (group) => (req, res, next) => {
   try {
     const { authorization } = req.headers;
-    if (!authorization || authorization.startsWith("Bearer")) {
+    if (!authorization || !authorization.startsWith("Bearer")) {
       return next(ApiError.Unauthorized());
     }
     const accessToken = authorization.substring(7);

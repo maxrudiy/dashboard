@@ -5,20 +5,20 @@ const AuthMiddleware = (group) => (req, res, next) => {
   try {
     const { authorization } = req.headers;
     if (!authorization || !authorization.startsWith("Bearer")) {
-      return next(ApiError.Unauthorized());
+      return next(ApiError.Forbidden());
     }
     const accessToken = authorization.substring(7);
     if (!accessToken) {
-      return next(ApiError.Unauthorized());
+      return next(ApiError.Forbidden());
     }
     const payload = TokenService.verifyAccessToken(accessToken);
     if (!payload || !payload.groups.find((value) => value.group === group) || !payload.isActivated) {
-      return next(ApiError.Unauthorized());
+      return next(ApiError.Forbidden());
     }
     req.user = payload;
     return next();
   } catch (err) {
-    return next(ApiError.Unauthorized());
+    return next(ApiError.Forbidden());
   }
 };
 
